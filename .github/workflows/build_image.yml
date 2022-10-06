@@ -11,9 +11,11 @@ permissions:
   packages: write
 
 env:
+  DOCKER_TAG: master
   REGISTRY: ghcr.io
   DOCKER_BUILDKIT: 1
   COMPOSE_DOCKER_CLI_BUILD: 1
+  DOCKER_REPOSITORY: umekawa/github-actions-sample
 
 jobs:
   build_image:
@@ -32,14 +34,14 @@ jobs:
       - uses: docker/metadata-action@v4
         id: meta
         with:
-          images: sample_image:master
+          images: ${{ env.REGISTRY }}/${{ env.DOCKER_REPOSITORY }}:${{ env.DOCKER_TAG }}
       - uses: docker/build-push-action@v3
         id: docker_build
         with:
           context: .
           file: Dockerfile
           push: ${{ github.event_name == 'push' }}
-          tags: sample_image:master
+          tags: ${{ env.REGISTRY }}/${{ env.DOCKER_REPOSITORY }}:${{ env.DOCKER_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

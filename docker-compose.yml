@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   sample:
-    image: sample_image:master
+    image: $REGISTRY/$DOCKER_REPOSITORY:$DOCKER_TAG
     build:
       context: .
       dockerfile: ./Dockerfile
