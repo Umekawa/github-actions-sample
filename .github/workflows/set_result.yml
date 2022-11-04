@@ -1,0 +1,25 @@
+name: Set result sample
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  use_cache_sample:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/github-script@v6
+        id: set-result
+        with:
+          script: | 
+            const {execSync} = require('child_process')
+            execSync('return 0')
+          result-encoding: string
+      - name: Get result
+        run: echo "${{steps.set-result.outputs.result}}"
