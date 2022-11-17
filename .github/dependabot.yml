@@ -4,8 +4,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "monday"
-      time: "14:00"
+      day: "thursday"
+      time: "19:35"
       timezone: "Asia/Tokyo"
     reviewers:
       - "Umekawa"
